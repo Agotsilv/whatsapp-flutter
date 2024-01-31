@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:whats/Home/Home.dart';
 import 'package:whats/model/Usuario.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CadastroUsuario extends StatefulWidget {
   const CadastroUsuario({Key? key}) : super(key: key);
@@ -15,7 +16,6 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
   final TextEditingController _controllerNome = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerSenha = TextEditingController();
-
   String _mensagemError = "";
 
   validarCampos() {
@@ -60,7 +60,13 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
           email: usuario.emai,
           password: usuario.senha
       ).then((response){
-       Navigator.push(context,
+        FirebaseFirestore db = FirebaseFirestore.instance;
+
+        db.collection("usuarios")
+            .doc(response.user?.uid)
+            .set(usuario.toMap());
+
+       Navigator.pushReplacement(context,
            MaterialPageRoute(builder: (context) => const Home(),
            ),
        );
