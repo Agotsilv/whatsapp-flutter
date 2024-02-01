@@ -36,28 +36,20 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   _escolhaMenuItem(String i) async{
-      switch(i){
-        case "Configurações":
-          print('Config');
-          break;
-        case "Deslogar":
-          _signOut();
-          break;
-      }
+    switch(i){
+      case "Configurações":
+        Navigator.pushNamed(context, '/config');
+        break;
+      case "Deslogar":
+        _signOut();
+        break;
+    }
   }
 
   _signOut()async {
     FirebaseAuth auth = FirebaseAuth.instance;
-
     await auth.signOut();
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const Login(),
-      ),
-    );
-
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override

@@ -29,7 +29,7 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             Usuario usuario = Usuario();
 
             usuario.nome = nome;
-            usuario.emai = email;
+            usuario.email = email;
             usuario.senha = senha;
 
           _cadastrarUsuario( usuario );
@@ -55,9 +55,11 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
   }
 
   _cadastrarUsuario(Usuario usuario) async {
+
+
     FirebaseAuth auth = FirebaseAuth.instance;
       auth.createUserWithEmailAndPassword(
-          email: usuario.emai,
+          email: usuario.email,
           password: usuario.senha
       ).then((response){
         FirebaseFirestore db = FirebaseFirestore.instance;
@@ -66,10 +68,8 @@ class _CadastroUsuarioState extends State<CadastroUsuario> {
             .doc(response.user?.uid)
             .set(usuario.toMap());
 
-       Navigator.pushReplacement(context,
-           MaterialPageRoute(builder: (context) => const Home(),
-           ),
-       );
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (_) => false);
+
       }).catchError((error) {
         setState(() {
           _mensagemError = "Error ao cadastrar usuário, "

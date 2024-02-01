@@ -1,16 +1,20 @@
 class Usuario {
   late String _nome;
-  late String _emai;
+  late String _email;
   late String _senha;
+  late String _imagem;
 
   Usuario();
 
-  Map<String, dynamic> toMap(){
-    Map<String, dynamic> map = {
-      "nome": nome,
-      "email": emai
-    };
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {"nome": nome, "email": email};
     return map;
+  }
+
+  String get imagem => _imagem;
+
+  set imagem(String value) {
+    _imagem = value;
   }
 
   String get senha => _senha;
@@ -19,10 +23,10 @@ class Usuario {
     _senha = value;
   }
 
-  String get emai => _emai;
+  String get email => _email;
 
-  set emai(String value) {
-    _emai = value;
+  set email(String value) {
+    _email = value;
   }
 
   String get nome => _nome;

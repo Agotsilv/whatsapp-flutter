@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
       if (senha.isNotEmpty && senha.length >= 6) {
         Usuario usuario = Usuario();
 
-        usuario.emai = email;
+        usuario.email = email;
         usuario.senha = senha;
 
         _logarUsuario(usuario);
@@ -49,14 +49,10 @@ class _LoginState extends State<Login> {
     FirebaseAuth auth = FirebaseAuth.instance;
 
     auth.signInWithEmailAndPassword(
-            email: usuario.emai, password: usuario.senha)
-        .then((response) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Home(),
-        ),
-      );
+            email: usuario.email, password: usuario.senha)
+      .then((response) {
+
+        Navigator.pushReplacementNamed(context, '/home');
     }).catchError((error) {
       setState(() {
         _mensagemError = "Error ao autenticar usuário, verifique email e senha!";
@@ -72,12 +68,7 @@ class _LoginState extends State<Login> {
 
 
       if(usuarioLogado != null){
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Home(),
-          ),
-        );
+        Navigator.pushReplacementNamed(context, '/home');
       }
     }
 
