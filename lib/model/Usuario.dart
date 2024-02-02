@@ -3,12 +3,20 @@ class Usuario {
   late String _email;
   late String _senha;
   late String _imagem;
+  late String _idUsuario;
 
   Usuario();
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {"nome": nome, "email": email};
     return map;
+  }
+
+
+  String get idUsuario => _idUsuario;
+
+  set idUsuario(String value) {
+    _idUsuario = value;
   }
 
   String get imagem => _imagem;

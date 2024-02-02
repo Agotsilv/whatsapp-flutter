@@ -21,20 +21,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     "Deslogar"
   ];
 
-  Future verificarUserLogado() async {
-
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _tabController = TabController(
-        length: 2,
-        vsync: this
-    );
-  }
-
   _escolhaMenuItem(String i) async{
     switch(i){
       case "Configurações":
@@ -50,6 +36,26 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.signOut();
     Navigator.pushReplacementNamed(context, '/login');
+  }
+
+  Future _verificaUsuarioLogado() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? usuarioLogado = await auth.currentUser;
+
+    if(usuarioLogado == null){
+      Navigator.pushReplacementNamed(context, '/login');
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _verificaUsuarioLogado();
+    _tabController = TabController(
+        length: 2,
+        vsync: this
+    );
   }
 
   @override

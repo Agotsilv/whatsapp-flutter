@@ -27,6 +27,7 @@ class _ContatosState extends State<Contatos> {
       usuario.email = dados["email"] ?? "";
       usuario.nome = dados["nome"] ?? "";
       usuario.imagem = dados["urlImagem"] ?? _defaultImage;
+      usuario.idUsuario = item.id ?? "";
       listaUsuarios.add(usuario);
     }
     return listaUsuarios;
@@ -74,7 +75,9 @@ class _ContatosState extends State<Contatos> {
                     List<Usuario>? listaItens = snapshot.data;
                     Usuario usuario = listaItens![indice];
                     return ListTile(
-                      onTap: () {},
+                      onTap: () {
+                            Navigator.pushNamed(context,'/mensagens', arguments: usuario );
+                      },
                       contentPadding: EdgeInsets.fromLTRB(16, 8, 16, 8),
                       leading: CircleAvatar(
                           maxRadius: 30,
